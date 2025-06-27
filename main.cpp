@@ -233,7 +233,7 @@ public:
         }
     }
 
-    void update(float deltaTime, Paddle* player, Paddle* ai)
+    void update(float deltaTime, Paddle*& player, Paddle*& ai)
     {
         if (waitingForReset)
             return;
