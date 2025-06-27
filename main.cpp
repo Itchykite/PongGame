@@ -139,12 +139,13 @@ class Paddle
 {
 private:
     SDL_Rect rect;
-    float speed = 1000.0f;
+    float posY; 
+    float speed = 250.0f;
     int score = 0;
 
 public:
     Paddle(int x, int y)
-        : rect{x, y, 20, windowHeight / 5} {}
+        : rect{x, y, 20, windowHeight / 5}, posY(y) {}
 
     void draw(SDL_Renderer* renderer)
     {
@@ -154,17 +155,25 @@ public:
 
     void moveUp(float deltaTime)
     {
-        if (rect.y > 0)
+        if (posY > 0)
         {
-            rect.y -= static_cast<int>(speed * deltaTime);
+            posY -= speed * deltaTime;
+            
+            if (posY < 0) posY = 0;
+            
+            rect.y = static_cast<int>(posY);
         }
     }
 
     void moveDown(float deltaTime)
     {
-        if (rect.y + rect.h < windowHeight)
+        if (posY + rect.h < windowHeight) 
         {
-            rect.y += static_cast<int>(speed * deltaTime);
+            posY += speed * deltaTime;
+            
+            if (posY + rect.h > windowHeight) posY = windowHeight - rect.h;
+            
+            rect.y = static_cast<int>(posY);
         }
     }
 
@@ -263,6 +272,8 @@ public:
         if (rect.x + rect.w > windowWidth)
         {
             player->score++;
+            player->speed *= 1.1f;
+            ai->speed *= 1.1f;
             speedX *= 1.1f;
             speedY *= 1.1f;
             resetWithDelay();
@@ -272,6 +283,8 @@ public:
             ai->score++;
             speedX *= 1.1f;
             speedY *= 1.1f;
+            player->speed *= 1.1f;
+            ai->speed *= 1.1f;
             resetWithDelay();
         }
     }
