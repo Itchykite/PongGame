@@ -28,7 +28,7 @@ int showResolutionSelection()
         return -1;
     }
 
-    TTF_Font* menuFont = TTF_OpenFont("DejaVuSans-Bold.ttf", 28);
+    TTF_Font* menuFont = TTF_OpenFont("../DejaVuSans-Bold.ttf", 28);
     if (!menuFont)
     {
         std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
@@ -300,7 +300,7 @@ bool initialize()
         return false;
     }
 
-    font = TTF_OpenFont("DejaVuSans-Bold.ttf", 64);
+    font = TTF_OpenFont("../DejaVuSans-Bold.ttf", 64);
 
     window = SDL_CreateWindow("Pong Game",
                               SDL_WINDOWPOS_UNDEFINED,
